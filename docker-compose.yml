@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: comunidauto_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: comuniduser
+      MYSQL_PASSWORD: comunidpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: comunidauto_phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+  web:
+    image: php:8.2-apache
+    container_name: comunidauto_web
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "8000:80"
+    volumes:
+      - ./Frontend:/var/www/html
+
+volumes:
+  mysql_data:
