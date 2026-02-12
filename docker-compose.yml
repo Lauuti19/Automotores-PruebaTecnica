@@ -34,7 +34,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./Frontend:/var/www/html
+      - ./:/var/www/html
 
 volumes:
   mysql_data:
