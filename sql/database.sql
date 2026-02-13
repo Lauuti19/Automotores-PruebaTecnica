@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `AgenciaVehiculos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `AgenciaVehiculos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `AgenciaVehiculos`;
 
 CREATE TABLE IF NOT EXISTS `Clientes` (
@@ -8,13 +8,15 @@ CREATE TABLE IF NOT EXISTS `Clientes` (
   `email` VARCHAR(255) NOT NULL UNIQUE,
   `ciudad` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Marcas` (
   `id_marca` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_marca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Modelos` (
   `id_modelo` INT NOT NULL AUTO_INCREMENT,
@@ -22,19 +24,22 @@ CREATE TABLE IF NOT EXISTS `Modelos` (
   `nombre` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_modelo`),
   FOREIGN KEY (`id_marca`) REFERENCES `Marcas`(`id_marca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Metodos_de_pago` (
   `id_metodo_pago` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_metodo_pago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Tipos_combustible` (
   `id_combustible` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id_combustible`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE IF NOT EXISTS `Vehiculos_stock` (
@@ -50,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `Vehiculos_stock` (
   FOREIGN KEY (`id_modelo`) REFERENCES `Modelos`(`id_modelo`)
   ON DELETE RESTRICT,
   FOREIGN KEY (`id_combustible`) REFERENCES `Tipos_combustible`(`id_combustible`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Registro_ventas` (
   `id_operacion` INT NOT NULL AUTO_INCREMENT,
@@ -63,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `Registro_ventas` (
   FOREIGN KEY (`id_cliente`) REFERENCES `Clientes`(`id_cliente`),
   FOREIGN KEY (`id_vehiculo`) REFERENCES `Vehiculos_stock`(`id_vehiculo`),
   FOREIGN KEY (`id_metodo_pago`) REFERENCES `Metodos_de_pago`(`id_metodo_pago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `Imagenes_vehiculos` (
   `id_imagen` INT NOT NULL AUTO_INCREMENT,
@@ -71,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `Imagenes_vehiculos` (
   `nombre_imagen` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_imagen`),
   FOREIGN KEY (`id_vehiculo`) REFERENCES `Vehiculos_stock`(`id_vehiculo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_0900_ai_ci;
 
 
 
@@ -215,20 +223,40 @@ CREATE TABLE IF NOT EXISTS `Imagenes_vehiculos` (
 INSERT INTO Imagenes_vehiculos
   (id_vehiculo, nombre_imagen) VALUES
   (2, 'toyota-corolla-gris.png'),
-  (2, 'toyota-corolla-gris-modal.png'),
-  (3, 'toyota-corolla-gris.png'),
+  (3, 'toyota-hilux-negra.png'),
   (5, 'volkswagen-golf-rojo.jpg'),
-  (5, 'volkswagen-golf-rojo-modal.jpeg'),
   (8, 'volkswagen-amarok-negra.png'),
-  (8, 'volkswagen-amarok-negra-modal.jpg'),
   (10, 'ford-focus-gris.jpg'),
-  (10, 'ford-focus-modal.jpg'),
   (11, 'ford-ranger-blanca.png'),
-  (11, 'ford-ranger-modal.jpg'),
   (13, 'chevrolet-cruze-blanco.avif'),
-  (13, 'chevrolet-cruze-modal.jpg'),
-  (13, 'chevrolet-cruze-negro.avif'),
-  (14, 'chevrolet-onix-blanco.avif')
+  (14, 'chevrolet-cruze-negro.avif'),
+  (16, 'chevrolet-onix-blanco.avif'),
+  (17, 'peugeot-208-azul.jpg'),
+  (19, 'peugeot-2008-gris.jpg'),
+  (21, 'renault-sandero-gris.jpg'),
+  (23, 'renault-duster-negro.jpg'),
+  (25, 'honda-civic-blanco.jpg'),
+  (28, 'nissan-sentra-azul.webp'),
+  (31, 'jeep-compass-negra.jpg');
+
+INSERT INTO Imagenes_vehiculos
+  (id_vehiculo, nombre_imagen) VALUES
+  (2, 'toyota-corolla-modal.png'),
+  (3, 'toyota-hilux-modal.png'),
+  (5, 'volkswagen-golf-modal.jpg'),
+  (8, 'volkswagen-amarok-modal.png'),
+  (10, 'ford-focus-modal.jpg'),
+  (11, 'ford-ranger-modal.png'),
+  (13, 'chevrolet-cruze-blanco-modal.avif'),
+  (14, 'chevrolet-cruze-negro-modal.avif'),
+  (16, 'chevrolet-onix-modal.avif'),
+  (17, 'peugeot-208-modal.jpg'),
+  (19, 'peugeot-2008-modal.jpg'),
+  (21, 'renault-sandero-modal.jpg'),
+  (23, 'renault-duster-modal.jpg'),
+  (25, 'honda-civic-modal.jpg'),
+  (28, 'nissan-sentra-modal.webp'),
+  (31, 'jeep-compass-modal.jpg');
 
 DELIMITER $$
 
@@ -284,6 +312,7 @@ CREATE PROCEDURE sp_filtro_catalogo (
 BEGIN
 
   SELECT
+    V.id_vehiculo
     Ma.nombre AS marca, 
     Mo.nombre AS modelo, 
     (
