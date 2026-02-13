@@ -352,3 +352,29 @@ END $$
 DELIMITER ;
 
 
+DELIMITER $$
+
+CREATE PROCEDURE sp_datos_para_filtros(
+    IN p_tipo VARCHAR(50)
+)
+BEGIN
+    IF p_tipo = 'marcas' THEN
+        SELECT
+            Ma.nombre AS marca
+        FROM Marcas Ma
+        WHERE Ma.nombre IS NOT NULL 
+          AND Ma.nombre != ''
+        ORDER BY Ma.nombre;
+
+    ELSEIF p_tipo = 'modelos' THEN
+        SELECT
+            Mo.nombre AS modelo
+        FROM Modelos Mo
+        WHERE Mo.nombre IS NOT NULL 
+          AND Mo.nombre != ''
+        ORDER BY Mo.nombre;
+    END IF;
+END $$
+
+DELIMITER ;
+

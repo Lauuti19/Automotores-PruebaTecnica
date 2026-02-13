@@ -178,7 +178,7 @@
                             </div>
                             <div class="carousel-item">
                                 <div class="card border-0">
-                                    <img src="./imgs/toyota-hilux-negra.png" 
+                                    <img src="./public/imgs/toyota-hilux-negra.png" 
                                          class="card-img-top img-destacado" 
                                          alt="Toyota Hilux">
                                     <div class="card-body text-center py-4">
@@ -189,7 +189,7 @@
                             </div>
                             <div class="carousel-item">
                                 <div class="card border-0">
-                                    <img src="./imgs/peugeot-208.avif" 
+                                    <img src="./public/imgs/peugeot-208-azul.jpg" 
                                          class="card-img-top img-destacado" 
                                          alt="Peugeot 208">
                                     <div class="card-body text-center py-4">
