@@ -132,14 +132,14 @@ COLLATE utf8mb4_0900_ai_ci;
   INSERT INTO Metodos_de_pago (nombre) VALUES
   ('Efectivo'),
   ('Transferencia'),
-  ('Tarjeta de crédito'),
-  ('Financiación');
+  ('Tarjeta de credito'),
+  ('Financiacion');
   
   INSERT INTO Tipos_combustible (nombre) VALUES
   ('Nafta'),
   ('Diesel'),
-  ('Híbrido'),
-  ('Eléctrico'),
+  ('Hibrido'),
+  ('Electrico'),
   ('GNC');
 
   INSERT INTO Vehiculos_stock (id_modelo, id_combustible, anio, color, precio, kilometros) VALUES
@@ -237,21 +237,18 @@ INSERT INTO Imagenes_vehiculos
   (23, 'renault-duster-negro.jpg'),
   (25, 'honda-civic-blanco.jpg'),
   (28, 'nissan-sentra-azul.webp'),
-  (31, 'jeep-compass-negra.jpg');
-
-INSERT INTO Imagenes_vehiculos
-  (id_vehiculo, nombre_imagen) VALUES
-  (2, 'toyota-corolla-modal.png'),
-  (3, 'toyota-hilux-modal.png'),
-  (5, 'volkswagen-golf-modal.jpg'),
-  (8, 'volkswagen-amarok-modal.png'),
+  (31, 'jeep-compass-negra.jpg'),
+  (2, 'toyota-corolla-gris-modal.png'),
+  (3, 'toyota-hilux-negra-modal.png'),
+  (5, 'volkswagen-golf-rojo-modal.jpeg'),
+  (8, 'volkswagen-amarok-negra-modal.jpg'),
   (10, 'ford-focus-modal.jpg'),
-  (11, 'ford-ranger-modal.png'),
+  (11, 'ford-ranger-modal.avif'),
   (13, 'chevrolet-cruze-blanco-modal.avif'),
   (14, 'chevrolet-cruze-negro-modal.avif'),
   (16, 'chevrolet-onix-modal.avif'),
   (17, 'peugeot-208-modal.jpg'),
-  (19, 'peugeot-2008-modal.jpg'),
+  (19, 'peugeot-2008-modal.avif'),
   (21, 'renault-sandero-modal.jpg'),
   (23, 'renault-duster-modal.jpg'),
   (25, 'honda-civic-modal.jpg'),
@@ -312,20 +309,34 @@ CREATE PROCEDURE sp_filtro_catalogo (
 BEGIN
 
   SELECT
-    V.id_vehiculo
+    V.id_vehiculo,
     Ma.nombre AS marca, 
     Mo.nombre AS modelo, 
+    (
+      SELECT ImgNormal.nombre_imagen
+      FROM Imagenes_vehiculos ImgNormal
+      WHERE ImgNormal.id_vehiculo = V.id_vehiculo 
+      AND ImgNormal.nombre_imagen NOT LIKE '%modal%'
+      LIMIT 1
+    ) AS nombre_imagen,
+
     (
       SELECT ImgModal.nombre_imagen
       FROM Imagenes_vehiculos ImgModal
       WHERE ImgModal.id_vehiculo = V.id_vehiculo 
-      AND ImgModal.nombre_imagen NOT LIKE '%modal%'
-    ) 
-    AS nombre_imagen,
-    V.anio
+      AND ImgModal.nombre_imagen LIKE '%modal%'
+      LIMIT 1
+    ) AS nombre_imagen_modal,
+
+    V.anio,
+    V.precio,
+    V.kilometros,
+    V.color,
+    Tc.nombre as combustible
   FROM Vehiculos_stock V
   JOIN Modelos Mo ON V.id_modelo = Mo.id_modelo
   JOIN Marcas Ma ON Mo.id_marca = Ma.id_marca
+  JOIN Tipos_combustible Tc ON V.id_combustible = Tc.id_combustible
   WHERE
     V.disponible = 1
     AND (p_anio IS NULL OR p_anio = '' OR V.anio = p_anio)
@@ -340,35 +351,4 @@ END $$
 
 DELIMITER ;
 
-DELIMITER $$
-
-CREATE PROCEDURE sp_vehiculo_seleccionado (
-  IN p_id_vehiculo INT
-)
-BEGIN
-  SELECT
-    Ma.nombre AS marca, 
-    Mo.nombre AS modelo, 
-    (
-      SELECT ImgModal.nombre_imagen
-      FROM Imagenes_vehiculos ImgModal
-      WHERE ImgModal.id_vehiculo = V.id_vehiculo 
-      AND ImgModal.nombre_imagen LIKE '%modal%'
-    ) 
-    AS nombre_imagen,
-    V.precio,
-    V.color,
-    V.kilometros,
-    Tc.nombre AS combustible,
-    V.anio
-  FROM Vehiculos_stock V
-  JOIN Modelos Mo ON V.id_modelo = Mo.id_modelo
-  JOIN Marcas Ma ON Mo.id_marca = Ma.id_marca
-  JOIN Tipos_combustible Tc ON V.id_combustible = Tc.id_combustible
-  WHERE
-    V.disponible = 1
-    AND V.id_vehiculo = p_id_vehiculo;
-END $$
-
-DELIMITER ;
 

@@ -5,6 +5,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AgenciaVehiculos
       MYSQL_USER: comuniduser
       MYSQL_PASSWORD: comunidpass
     ports:
@@ -26,7 +27,7 @@ services:
     ports:
       - "8080:80"
   web:
-    image: php:8.2-apache
+    build: .
     container_name: comunidauto_web
     restart: always
     depends_on:

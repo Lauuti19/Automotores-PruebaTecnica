@@ -8,7 +8,6 @@ class ventasController {
 
         $conexion = conectarDB();
 
-        // Parámetros GET
         $cliente = $_GET['cliente'] ?? null;
         $metodo_pago = $_GET['metodo_pago'] ?? null;
         $fecha_desde = $_GET['fecha_desde'] ?? null;

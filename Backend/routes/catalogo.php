@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . '/../controllers/CatalogoController.php');
 
-
-
-CatalogoController::filtro();
+if (isset($_GET['tipo'])) {
+    CatalogoController::datosParaFiltros();
+} else {
+    CatalogoController::filtro();
+}

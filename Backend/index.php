@@ -11,7 +11,6 @@ $routes = [
     'GET' => [
         '/catalogo' => 'catalogo.php',
         '/ventas'   => 'ventas.php',
-        '/vehiculo' => 'vehiculo.php'
     ]
 ];
 
