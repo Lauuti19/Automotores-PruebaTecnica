@@ -30,6 +30,31 @@ El sistema está compuesto por:
 
 ---
 
+
+# Funcionalidades implementadas
+
+Listado de vehículos:
+
+Cada vehículo muestra:
+- Marca
+- Modelo
+- Año
+- Precio
+- Imagen
+Los datos se obtienen desde MySQL mediante consultas al backend
+
+---
+# Decisiones Técnicas
+
+- Se utilizó PHP aproximado al nivel solicitado en la prueba.
+- Se implementó Docker para garantizar portabilidad y evitar problemas de entorno.
+- Se separó frontend y backend para mantener una arquitectura más clara.
+- Bootstrap 5 fue utilizado para lograr una interfaz moderna y responsiva.
+- La base de datos fue modelada respetando principios de normalización básica.
+- Se utilizaron procedimientos almacenados para centralizar la lógica SQL.
+
+---
+
 # Levantar el Proyecto
 
 ## Requisitos
@@ -64,5 +89,6 @@ URLs:
     "color": "Blanco",
     "combustible": "Nafta"
   }
-  - PhpMyAdmin: http://localhost:8080/
+- PhpMyAdmin: http://localhost:8080/
     #Base de datos: AgenciaVehiculos
+
